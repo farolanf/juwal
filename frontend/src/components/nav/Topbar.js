@@ -9,6 +9,9 @@ import Toolbar from '@material-ui/core/Toolbar'
 import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/MenuOutlined'
 
+import Spacer from '../Spacer'
+import Link from './Link'
+
 const Topbar = ({ title, width }) => (
   <AppBar position='static'>
     <Toolbar>
@@ -17,14 +20,20 @@ const Topbar = ({ title, width }) => (
           <MenuIcon />
         </IconButton>
       )}
-      <Typography variant='h5' color='inherit'>{title}</Typography>
+      <Link to='/'>
+        <Typography variant='h5' color='inherit'>{title}</Typography>
+      </Link>
+      <Spacer />
+      <IconButton color='inherit' aria-label='Account'>
+        <MenuIcon />
+      </IconButton>
     </Toolbar>
   </AppBar>
 )
 
 Topbar.propTypes = {
   title: PropTypes.string.isRequired,
-  width: PropTypes.string.isRequired
+  width: PropTypes.string.isRequired,
 }
 
 export default withWidth()(Topbar)
