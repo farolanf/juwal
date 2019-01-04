@@ -6,17 +6,14 @@ import { StaticQuery, graphql } from 'gatsby'
 import styled from 'styled-components'
 
 import CssBaseline from '@material-ui/core/CssBaseline'
-import { MuiThemeProvider, withTheme } from '@material-ui/core/styles'
+import { MuiThemeProvider } from '@material-ui/core/styles'
 
 import theme from '../theme'
 import Topbar from './nav/Topbar'
 
-const Content = withTheme()(styled.div`
-  ${tw`p-4`}
-  ${({ theme }) => ({
-    [theme.breakpoints.up('md')]: tw`px-8 py-6`,
-  })}
-`)
+const Content = styled.div`
+  ${tw`xs:p-4 md:px-8 md:py-6`}
+`
 
 const Layout = ({ children }) => (
   <StaticQuery
