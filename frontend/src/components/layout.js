@@ -3,12 +3,20 @@ import 'typeface-roboto'
 import React from 'react'
 import PropTypes from 'prop-types'
 import { StaticQuery, graphql } from 'gatsby'
+import styled from 'styled-components'
 
-import { MuiThemeProvider } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
+import { MuiThemeProvider, withTheme } from '@material-ui/core/styles'
 
 import theme from '../theme'
 import Topbar from './nav/Topbar'
+
+const Content = withTheme()(styled.div`
+  ${tw`p-4`}
+  ${({ theme }) => ({
+    [theme.breakpoints.up('md')]: tw`px-8 py-6`,
+  })}
+`)
 
 const Layout = ({ children }) => (
   <StaticQuery
@@ -26,7 +34,9 @@ const Layout = ({ children }) => (
       <MuiThemeProvider theme={theme}>
         <CssBaseline />
         <Topbar title={data.site.siteMetadata.title} />
-        {children}
+        <Content>
+          {children}
+        </Content>
       </MuiThemeProvider>
     )}
   />
