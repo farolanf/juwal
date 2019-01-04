@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
 
 import AppBar from '@material-ui/core/AppBar'
 import Typography from '@material-ui/core/Typography'
@@ -9,42 +10,40 @@ import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/MenuOutlined'
 import PersonIcon from '@material-ui/icons/Person'
 
-import withWidth, { isWidthUp } from '@material-ui/core/withWidth'
-import { withStyles } from '@material-ui/core/styles'
+import Hidden from '@material-ui/core/Hidden'
 
 import Spacer from '../Spacer'
 import Link from './Link'
 
-const MenuButton = withStyles(theme => ({
-  root: {
-    ...tw`mr-1`,
-    [theme.breakpoints.up('md')]: tw`mr-3`
-  },
-}))(({ classes }) => (
-  <IconButton color='inherit' className={classes.root} aria-label='Menu'>
+const MenuButton = styled(({ className }) => (
+  <IconButton color='inherit' className={className} aria-label='Menu'>
     <MenuIcon />
   </IconButton>
-))
+))`
+  && {
+    ${tw`xs:mr-1 md:mr-3`}
+  }
+`
 
-const Brand = withStyles({
-  brand: tw`mr-2`
-})(({ title, classes }) => (
-  <Link to='/' className={classes.brand}>
+const Brand = styled(({ title, className }) => (
+  <Link to='/' className={className}>
     <Typography variant='h6' color='inherit'>{title}</Typography>
   </Link>
-))
+))`
+  && {
+    ${tw`mr-3`}
+  }
+`
 
-const TopMenu = withWidth()(({ width }) => (
-  isWidthUp('md', width) && (
-    <>
-      <Button color='inherit'>
-        <Typography variant='button' color='inherit'>Home</Typography>
-      </Button>
-      <Button color='inherit'>
-        <Typography variant='button' color='inherit'>Categories</Typography>
-      </Button>
-    </>
-  )
+const TopMenu = (() => (
+  <Hidden smDown>
+    <Button color='inherit'>
+      <Typography variant='button' color='inherit'>Home</Typography>
+    </Button>
+    <Button color='inherit'>
+      <Typography variant='button' color='inherit'>Categories</Typography>
+    </Button>
+  </Hidden>
 ))
 
 const Topbar = ({ title }) => (
