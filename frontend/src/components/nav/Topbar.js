@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { compose } from 'lodash/fp'
 
 import AppBar from '@material-ui/core/AppBar'
 import Typography from '@material-ui/core/Typography'
@@ -16,33 +15,44 @@ import { withStyles } from '@material-ui/core/styles'
 import Spacer from '../Spacer'
 import Link from './Link'
 
-const styles = theme => ({
-  menuButton: {
+const MenuButton = withStyles(theme => ({
+  root: {
     ...tw`mr-1`,
     [theme.breakpoints.up('md')]: tw`mr-3`
   },
-  brand: tw`mr-2`
-})
+}))(({ classes }) => (
+  <IconButton color='inherit' className={classes.root} aria-label='Menu'>
+    <MenuIcon />
+  </IconButton>
+))
 
-const Topbar = ({ title, width, classes }) => (
+const Brand = withStyles({
+  brand: tw`mr-2`
+})(({ title, classes }) => (
+  <Link to='/' className={classes.brand}>
+    <Typography variant='h6' color='inherit'>{title}</Typography>
+  </Link>
+))
+
+const TopMenu = withWidth()(({ width }) => (
+  isWidthUp('md', width) && (
+    <>
+      <Button color='inherit'>
+        <Typography variant='button' color='inherit'>Home</Typography>
+      </Button>
+      <Button color='inherit'>
+        <Typography variant='button' color='inherit'>Categories</Typography>
+      </Button>
+    </>
+  )
+))
+
+const Topbar = ({ title }) => (
   <AppBar position='static'>
     <Toolbar>
-      <IconButton color='inherit' className={classes.menuButton} aria-label='Menu'>
-        <MenuIcon />
-      </IconButton>
-      <Link to='/' className={classes.brand}>
-        <Typography variant='h6' color='inherit'>{title}</Typography>
-      </Link>
-      {isWidthUp('md', width) && (
-        <>
-          <Button color='inherit'>
-            <Typography variant='button' color='inherit'>Home</Typography>
-          </Button>
-          <Button color='inherit'>
-            <Typography variant='button' color='inherit'>Categories</Typography>
-          </Button>
-        </>
-      )}
+      <MenuButton />
+      <Brand title={title} />
+      <TopMenu />
       <Spacer />
       <IconButton color='inherit' aria-label='Account'>
         <PersonIcon />
@@ -53,8 +63,6 @@ const Topbar = ({ title, width, classes }) => (
 
 Topbar.propTypes = {
   title: PropTypes.string.isRequired,
-  width: PropTypes.string.isRequired,
-  classes: PropTypes.object.isRequired,
 }
 
-export default compose(withWidth(), withStyles(styles))(Topbar)
+export default Topbar
