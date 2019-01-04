@@ -2,8 +2,7 @@ import styled from 'styled-components'
 import { Link } from 'gatsby'
 
 const StyledLink = styled(Link)`
-  color: inherit;
-  text-decoration: none;
+  ${tw`text-inherit no-underline`}
 `
 
 export default StyledLink

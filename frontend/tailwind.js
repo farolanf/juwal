@@ -44,6 +44,7 @@ View the full documentation at https://tailwindcss.com.
 */
 
 let colors = {
+  'inherit': 'inherit',
   'transparent': 'transparent',
 
   'black': '#22292f',
