@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
 
 import AppBar from '@material-ui/core/AppBar'
 import Typography from '@material-ui/core/Typography'
@@ -11,47 +10,33 @@ import MenuIcon from '@material-ui/icons/MenuOutlined'
 import PersonIcon from '@material-ui/icons/Person'
 
 import Hidden from '@material-ui/core/Hidden'
+import withStyles from '@material-ui/core/styles/withStyles'
 
 import Spacer from '../Spacer'
 import Link from './Link'
 
-const MenuButton = styled(({ className }) => (
-  <IconButton color='inherit' className={className} aria-label='Menu'>
-    <MenuIcon />
-  </IconButton>
-))`
-  && {
-    ${tw`xs:mr-1 md:mr-3`}
-  }
-`
+const styles = {
+  menuButton: tw`xs:mr-1 md:mr-3`,
+  brand: tw`mr-3`
+}
 
-const Brand = styled(({ title, className }) => (
-  <Link to='/' className={className}>
-    <Typography variant='h6' color='inherit'>{title}</Typography>
-  </Link>
-))`
-  && {
-    ${tw`mr-3`}
-  }
-`
-
-const TopMenu = (() => (
-  <Hidden smDown>
-    <Button color='inherit'>
-      <Typography variant='button' color='inherit'>Home</Typography>
-    </Button>
-    <Button color='inherit'>
-      <Typography variant='button' color='inherit'>Categories</Typography>
-    </Button>
-  </Hidden>
-))
-
-const Topbar = ({ title }) => (
+const Topbar = ({ title, classes }) => (
   <AppBar position='static'>
     <Toolbar>
-      <MenuButton />
-      <Brand title={title} />
-      <TopMenu />
+      <IconButton color='inherit' className={classes.menuButton} aria-label='Menu'>
+        <MenuIcon />
+      </IconButton>
+      <Link to='/' className={classes.brand}>
+        <Typography variant='h6' color='inherit'>{title}</Typography>
+      </Link>
+      <Hidden smDown>
+        <Button color='inherit'>
+          <Typography variant='button' color='inherit'>Home</Typography>
+        </Button>
+        <Button color='inherit'>
+          <Typography variant='button' color='inherit'>Categories</Typography>
+        </Button>
+      </Hidden>
       <Spacer />
       <IconButton color='inherit' aria-label='Account'>
         <PersonIcon />
@@ -62,6 +47,7 @@ const Topbar = ({ title }) => (
 
 Topbar.propTypes = {
   title: PropTypes.string.isRequired,
+  classes: PropTypes.object.isRequired,
 }
 
-export default Topbar
+export default withStyles(styles)(Topbar)
