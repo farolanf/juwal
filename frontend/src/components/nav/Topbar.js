@@ -20,10 +20,14 @@ const styles = {
   brand: tw`mr-3`
 }
 
-const Topbar = ({ title, classes }) => (
+const Topbar = ({ title, toggleSidebar, classes }) => (
   <AppBar position='static'>
     <Toolbar>
-      <IconButton color='inherit' className={classes.menuButton} aria-label='Menu'>
+      <IconButton
+        color='inherit'
+        className={classes.menuButton}
+        aria-label='Menu'
+        onClick={toggleSidebar}>
         <MenuIcon />
       </IconButton>
       <Link to='/' className={classes.brand}>
@@ -47,6 +51,7 @@ const Topbar = ({ title, classes }) => (
 
 Topbar.propTypes = {
   title: PropTypes.string.isRequired,
+  toggleSidebar: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
 }
 

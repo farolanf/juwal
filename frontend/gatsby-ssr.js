@@ -4,4 +4,8 @@
  * See: https://www.gatsbyjs.org/docs/ssr-apis/
  */
 
-// You can delete this file if you're not using it
+const wrapWithProvider = require('./wrap-with-provider')
+
+module.exports = {
+  wrapRootElement: wrapWithProvider
+}
