@@ -1,0 +1,12 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/connect/proxy/:provider",
+      "handler": "Connect.proxy",
+      "config": {
+        "policies": []
+      }
+    }
+  ] 
+}

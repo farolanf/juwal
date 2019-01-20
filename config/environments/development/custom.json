@@ -1,3 +1,4 @@
 {
-  "myCustomConfiguration": "This configuration is accessible through strapi.config.environments.development.myCustomConfiguration"
+  "myCustomConfiguration": "This configuration is accessible through strapi.config.environments.development.myCustomConfiguration",
+  "connectURL": "http://localhost:8000/connect"
 }
