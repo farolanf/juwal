@@ -1,8 +1,14 @@
 import axios from 'axios'
 import { API_HOST } from '$src/const'
 
-const storeToken = token => {
+export const saveToken = token => {
   localStorage.setItem('token', token)
+  initAuthorization()
+}
+
+export const clearToken = () => {
+  localStorage.removeItem('token')
+  initAuthorization()
 }
 
 const loadToken = () => localStorage.getItem('token')
@@ -19,8 +25,7 @@ export const connect = (provider, search) => {
   return axios
     .get(url)
     .then(res => {
-      storeToken(res.data.jwt)
-      initAuthorization()
+      saveToken(res.data.jwt)
     })
     // eslint-disable-next-line
     .catch(console.log)

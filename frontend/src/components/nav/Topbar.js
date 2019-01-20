@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 
 import AppBar from '@material-ui/core/AppBar'
@@ -6,11 +6,13 @@ import Typography from '@material-ui/core/Typography'
 import Toolbar from '@material-ui/core/Toolbar'
 import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
-import MenuIcon from '@material-ui/icons/MenuOutlined'
-import PersonIcon from '@material-ui/icons/Person'
-
+import Menu from '@material-ui/core/Menu'
+import MenuItem from '@material-ui/core/MenuItem'
 import Hidden from '@material-ui/core/Hidden'
 import withStyles from '@material-ui/core/styles/withStyles'
+
+import MenuIcon from '@material-ui/icons/MenuOutlined'
+import PersonIcon from '@material-ui/icons/Person'
 
 import Spacer from '../Spacer'
 import Link from './Link'
@@ -23,13 +25,23 @@ const styles = {
   brand: tw`mr-3`
 }
 
-const Topbar = ({ title, openSidebar, classes, loggedIn, user, fetchUser }) => {
+const Topbar = ({
+  title,
+  openSidebar,
+  classes,
+  loggedIn,
+  user,
+  fetchUser,
+  logout
+}) => {
   useEffect(() => {
     if (!window.location.pathname.startsWith('/connect')) {
       storeReferer()
     }
     fetchUser()
   }, [])
+
+  const [profileEl, setProfileEl] = useState(null)
 
   return (
     <AppBar position='static'>
@@ -53,17 +65,23 @@ const Topbar = ({ title, openSidebar, classes, loggedIn, user, fetchUser }) => {
           </Button>
         </Hidden>
         <Spacer />
-        {!loggedIn && (
+        {!loggedIn ? (
           <Button color='inherit' href={`${API_HOST}/connect/facebook/`}>
             <Typography variant='button' color='inherit'>Sign In</Typography>
           </Button>
-        )}
-        {loggedIn && (
-          <Link to='/profile'>
-            <IconButton color='inherit' aria-label='Account'>
+        ) : (
+          <>
+            <IconButton color='inherit' aria-label='Account' onClick={e => setProfileEl(e.currentTarget)}>
               <PersonIcon />
             </IconButton>
-          </Link>
+            <Menu
+              anchorEl={profileEl}
+              open={!!profileEl}
+              onClose={() => setProfileEl(null)}
+            >
+              <MenuItem onClick={logout}>Logout</MenuItem>
+            </Menu>
+          </>
         )}
       </Toolbar>
     </AppBar>
@@ -75,7 +93,7 @@ Topbar.propTypes = {
   openSidebar: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   loggedIn: PropTypes.bool.isRequired,
-  user: PropTypes.object.isRequired,
+  user: PropTypes.object,
   fetchUser: PropTypes.func.isRequired,
 }
 
