@@ -1,5 +1,4 @@
-export const SIDEBAR_OPEN = 'SIDEBAR_OPEN'
-export const SIDEBAR_CLOSE = 'SIDEBAR_CLOSE'
+import { createAction } from 'redux-actions'
 
-export const openSidebar = () => ({ type: SIDEBAR_OPEN })
-export const closeSidebar = () => ({ type: SIDEBAR_CLOSE })
+export const openSidebar = createAction('OPEN_SIDEBAR')
+export const closeSidebar = createAction('CLOSE_SIDEBAR')
