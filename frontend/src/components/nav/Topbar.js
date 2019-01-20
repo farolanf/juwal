@@ -23,12 +23,13 @@ const styles = {
   brand: tw`mr-3`
 }
 
-const Topbar = ({ title, openSidebar, classes }) => {
+const Topbar = ({ title, openSidebar, classes, loggedIn, user, fetchUser }) => {
   useEffect(() => {
     if (!window.location.pathname.startsWith('/connect')) {
       storeReferer()
     }
-  })
+    fetchUser()
+  }, [])
 
   return (
     <AppBar position='static'>
@@ -52,14 +53,18 @@ const Topbar = ({ title, openSidebar, classes }) => {
           </Button>
         </Hidden>
         <Spacer />
-        <Button color='inherit' href={`${API_HOST}/connect/facebook/`}>
-          <Typography variant='button' color='inherit'>Sign In</Typography>
-        </Button>
-        <Link to='/profile'>
-          <IconButton color='inherit' aria-label='Account'>
-            <PersonIcon />
-          </IconButton>
-        </Link>
+        {!loggedIn && (
+          <Button color='inherit' href={`${API_HOST}/connect/facebook/`}>
+            <Typography variant='button' color='inherit'>Sign In</Typography>
+          </Button>
+        )}
+        {loggedIn && (
+          <Link to='/profile'>
+            <IconButton color='inherit' aria-label='Account'>
+              <PersonIcon />
+            </IconButton>
+          </Link>
+        )}
       </Toolbar>
     </AppBar>
   )
@@ -69,6 +74,9 @@ Topbar.propTypes = {
   title: PropTypes.string.isRequired,
   openSidebar: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
+  loggedIn: PropTypes.bool.isRequired,
+  user: PropTypes.object.isRequired,
+  fetchUser: PropTypes.func.isRequired,
 }
 
 export default withStyles(styles)(Topbar)

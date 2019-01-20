@@ -8,8 +8,9 @@ import {
 
 const initialState = {
   completed: true,
+  loggedIn: false,
   user: null,
-  error: null
+  error: null,
 }
 
 export default handleActions(
@@ -17,20 +18,23 @@ export default handleActions(
     [fetchUserRequested]: state => ({
       ...state,
       completed: false,
+      loggedIn: false,
       user: null,
-      error: null
+      error: null,
     }),
     [fetchUserSuccess]: (state, { payload: { user }}) => ({
       ...state,
       completed: true,
+      loggedIn: true,
       user,
       error: null
     }),
-    [fetchUserError]: (state, { payload: { error }}) => ({
+    [fetchUserError]: (state, { payload }) => ({
       ...state,
       completed: true,
+      loggedIn: false,
       user: null,
-      error
+      error: payload
     }),
   },
   initialState

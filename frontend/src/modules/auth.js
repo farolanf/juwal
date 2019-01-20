@@ -34,3 +34,5 @@ const initAuthorization = () => {
     delete axios.defaults.headers.common['Authorization']
   }
 }
+
+initAuthorization()
