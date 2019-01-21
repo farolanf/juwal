@@ -17,6 +17,7 @@ export const fetchUser = () => dispatch => {
       dispatch(fetchUserAsync.success({ data: res.data }))
     })
     .catch(err => {
+      clearToken()
       dispatch(fetchUserAsync.error(err))
     })
 }
