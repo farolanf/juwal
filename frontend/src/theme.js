@@ -2,6 +2,9 @@ import { createMuiTheme } from '@material-ui/core/styles'
 import deepPurple from '@material-ui/core/colors/deepPurple'
 import indigo from '@material-ui/core/colors/indigo'
 import red from '@material-ui/core/colors/red'
+import blue from '@material-ui/core/colors/blue'
+import green from '@material-ui/core/colors/green'
+import amber from '@material-ui/core/colors/amber'
 
 const theme = createMuiTheme({
   palette: {
@@ -9,6 +12,9 @@ const theme = createMuiTheme({
     primary: indigo,
     secondary: deepPurple,
     error: red,
+    info: blue,
+    success: green,
+    warning: amber,
   },
   typography: {
     useNextVariants: true,
