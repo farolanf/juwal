@@ -12,7 +12,7 @@ const ProfilePage = () => {
           one {an email}
           other {# emails}
         }'
-        values={{ count: 30003 }}
+        values={{ count: 1 }}
       />
     </Layout>
   )

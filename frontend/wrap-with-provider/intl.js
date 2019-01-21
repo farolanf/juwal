@@ -4,8 +4,8 @@ const { addLocaleData, IntlProvider } = require('react-intl')
 const en = require('react-intl/locale-data/en')
 const id = require('react-intl/locale-data/id')
 
-const enMessages = require('$prj/translations/en.yml')
-const idMessages = require('$prj/translations/id.yml')
+const enMessages = require('$prj/translations/en.json')
+const idMessages = require('$prj/translations/id.json')
 
 const messages = {
   'en-US': enMessages,

@@ -50,7 +50,7 @@
     "develop": "gatsby develop",
     "start": "npm run develop",
     "format": "prettier --write \"src/**/*.js\"",
-    "translate": "extract-messages -l=en,id -d en -f yaml --flat true -o translations/generated 'src/**/*.js'",
+    "translate": "extract-messages -l=en,id -d en --flat true -o translations/generated 'src/**/*.js'",
     "test": "echo \"Write tests! -> https://gatsby.app/unit-testing\""
   },
   "devDependencies": {

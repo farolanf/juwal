@@ -1,0 +1,3 @@
+{
+  "profile.greeting": "Hai, anda {count, plural, =0 {tidak memiliki email} =1 {memiliki satu email} other {memiliki # email}}"
+}

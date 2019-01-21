@@ -1,0 +1,3 @@
+{
+  "profile.greeting": "Hello, you have {count, plural, one {an email} other {# emails}}"
+}
