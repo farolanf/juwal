@@ -15,6 +15,7 @@
     "classnames": "^2.2.6",
     "eslint": "^5.11.1",
     "eslint-plugin-react": "^7.12.2",
+    "extract-react-intl-messages": "^0.11.2",
     "gatsby": "^2.0.76",
     "gatsby-image": "^2.0.20",
     "gatsby-plugin-manifest": "^2.0.9",
@@ -49,6 +50,7 @@
     "develop": "gatsby develop",
     "start": "npm run develop",
     "format": "prettier --write \"src/**/*.js\"",
+    "translate": "extract-messages -l=en,id -d en -f yaml --flat true -o translations/generated 'src/**/*.js'",
     "test": "echo \"Write tests! -> https://gatsby.app/unit-testing\""
   },
   "devDependencies": {

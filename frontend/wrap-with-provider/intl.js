@@ -4,6 +4,14 @@ const { addLocaleData, IntlProvider } = require('react-intl')
 const en = require('react-intl/locale-data/en')
 const id = require('react-intl/locale-data/id')
 
+const enMessages = require('$prj/translations/en.yml')
+const idMessages = require('$prj/translations/id.yml')
+
+const messages = {
+  'en-US': enMessages,
+  'id-ID': idMessages,
+}
+
 addLocaleData([...en, ...id])
 
 const mapStateToProps = state => ({
@@ -12,7 +20,7 @@ const mapStateToProps = state => ({
 
 const ProviderWrapper = connect(mapStateToProps)(
   ({ locale, children }) => (
-    <IntlProvider locale={locale}>
+    <IntlProvider locale={locale} messages={messages[locale]}>
       {children}
     </IntlProvider>
   )
