@@ -58,11 +58,13 @@ exports.connect = (provider, query) => {
           key: 'advanced'
         }).get();
 
-        if (_.isEmpty(_.find(users, {provider})) && !advanced.allow_register) {
+        const email = profile.email;
+
+        if (_.isEmpty(_.find(users, {email})) && !advanced.allow_register) {
           return resolve([null, [{ messages: [{ id: 'Auth.advanced.allow_register' }] }], 'Register action is actualy not available.']);
         }
 
-        const user = _.find(users, {provider});
+        const user = _.find(users, {email});
 
         if (!_.isEmpty(user)) {
           return resolve([user, null]);
