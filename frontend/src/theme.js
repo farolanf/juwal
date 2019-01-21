@@ -1,13 +1,13 @@
 import { createMuiTheme } from '@material-ui/core/styles'
-import blue from '@material-ui/core/colors/blue'
-import lime from '@material-ui/core/colors/lime'
+import deepPurple from '@material-ui/core/colors/deepPurple'
+import indigo from '@material-ui/core/colors/indigo'
 import red from '@material-ui/core/colors/red'
 
 const theme = createMuiTheme({
   palette: {
     type: 'light',
-    primary: blue,
-    secondary: lime,
+    primary: indigo,
+    secondary: deepPurple,
     error: red,
   },
   typography: {

@@ -1,3 +1,6 @@
 {
-  "profile.greeting": "Hello, you have {count, plural, one {an email} other {# emails}}"
+  "cancel": "Cancel",
+  "login": "Login",
+  "profile.greeting": "Hello, you have {count, plural, one {an email} other {# emails}}",
+  "register": "Register"
 }

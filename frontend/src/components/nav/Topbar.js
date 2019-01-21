@@ -17,9 +17,10 @@ import LanguageIcon from '@material-ui/icons/Language'
 
 import Spacer from '../Spacer'
 import Link from './Link'
+import LoginBox from '../LoginBox'
 
-import { API_HOST } from '$src/const'
 import { storeReferer } from '../../modules/auth';
+import { FormattedMessage } from 'react-intl';
 
 const styles = {
   menuButton: tw`xs:mr-1 md:mr-3`,
@@ -52,6 +53,8 @@ const Topbar = ({
     setLangEl(null)
   }
 
+  const [loginBoxOpen, setLoginBoxOpen] = useState(false)
+
   return (
     <AppBar position='static'>
       <Toolbar>
@@ -83,9 +86,16 @@ const Topbar = ({
           <MenuItem onClick={() => handleLangClick('id-ID')}>Indonesia</MenuItem>
         </Menu>
         {!loggedIn ? (
-          <Button color='inherit' href={`${API_HOST}/connect/facebook/`}>
-            <Typography variant='button' color='inherit'>Sign In</Typography>
-          </Button>
+          <>
+            <Button color='inherit' onClick={() => setLoginBoxOpen(true)}>
+              <FormattedMessage id='login' defaultMessage='Login'>
+                {text => (
+                  <Typography variant='button' color='inherit'>{text}</Typography>
+                )}
+              </FormattedMessage>
+            </Button>
+            <LoginBox open={loginBoxOpen} onClose={() => setLoginBoxOpen(false)} />
+          </>
         ) : (
           <>
             <IconButton color='inherit' aria-label='Account' onClick={e => setProfileEl(e.currentTarget)}>
