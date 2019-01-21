@@ -76,7 +76,7 @@ const Topbar = ({
         <Spacer />
         <Button color='inherit' onClick={e => setLangEl(e.currentTarget)}>
           <LanguageIcon color='inherit' className={classes.buttonIcon} />
-          {locale}
+          {locale.substr(0, 2)}
         </Button>
         <Menu anchorEl={langEl} open={!!langEl} onClose={() => setLangEl(null)}>
           <MenuItem onClick={() => handleLangClick('en-US')}>English</MenuItem>
