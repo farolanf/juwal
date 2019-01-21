@@ -13,6 +13,7 @@ import withStyles from '@material-ui/core/styles/withStyles'
 
 import MenuIcon from '@material-ui/icons/MenuOutlined'
 import PersonIcon from '@material-ui/icons/Person'
+import LanguageIcon from '@material-ui/icons/Language'
 
 import Spacer from '../Spacer'
 import Link from './Link'
@@ -22,7 +23,8 @@ import { storeReferer } from '../../modules/auth';
 
 const styles = {
   menuButton: tw`xs:mr-1 md:mr-3`,
-  brand: tw`mr-3`
+  brand: tw`mr-3`,
+  buttonIcon: tw`mr-1`,
 }
 
 const Topbar = ({
@@ -30,9 +32,10 @@ const Topbar = ({
   openSidebar,
   classes,
   loggedIn,
-  user,
   fetchUser,
-  logout
+  logout,
+  locale,
+  setLocale,
 }) => {
   useEffect(() => {
     if (!window.location.pathname.startsWith('/connect')) {
@@ -42,6 +45,12 @@ const Topbar = ({
   }, [])
 
   const [profileEl, setProfileEl] = useState(null)
+  const [langEl, setLangEl] = useState(null)
+
+  function handleLangClick (locale) {
+    setLocale(locale)
+    setLangEl(null)
+  }
 
   return (
     <AppBar position='static'>
@@ -65,6 +74,14 @@ const Topbar = ({
           </Button>
         </Hidden>
         <Spacer />
+        <Button color='inherit' onClick={e => setLangEl(e.currentTarget)}>
+          <LanguageIcon color='inherit' className={classes.buttonIcon} />
+          {locale}
+        </Button>
+        <Menu anchorEl={langEl} open={!!langEl} onClose={() => setLangEl(null)}>
+          <MenuItem onClick={() => handleLangClick('en-US')}>English</MenuItem>
+          <MenuItem onClick={() => handleLangClick('id-ID')}>Indonesia</MenuItem>
+        </Menu>
         {!loggedIn ? (
           <Button color='inherit' href={`${API_HOST}/connect/facebook/`}>
             <Typography variant='button' color='inherit'>Sign In</Typography>
@@ -95,6 +112,9 @@ Topbar.propTypes = {
   loggedIn: PropTypes.bool.isRequired,
   user: PropTypes.object,
   fetchUser: PropTypes.func.isRequired,
+  logout: PropTypes.func.isRequired,
+  locale: PropTypes.string.isRequired,
+  setLocale: PropTypes.func.isRequired,
 }
 
 export default withStyles(styles)(Topbar)
