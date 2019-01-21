@@ -2,6 +2,14 @@
   "routes": [
     {
       "method": "GET",
+      "path": "/examples/send",
+      "handler": "Example.send",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
       "path": "/examples",
       "handler": "Example.find",
       "config": {

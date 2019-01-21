@@ -8,6 +8,19 @@
 
 module.exports = {
 
+  send: async (ctx) => {
+    await strapi.plugins['email'].services.email.send({
+      to: 'test@mail.com',
+      from: 'noreply@juwal.id',
+      replyTo: 'cs@juwal.id',
+      subject: 'test email',
+      text: 'this is text',
+      html: '<b>this is html</b>'
+    });
+    ctx.status = 200;
+    ctx.body = 'done!';
+  },
+
   /**
    * Retrieve example records.
    *

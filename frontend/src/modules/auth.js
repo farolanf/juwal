@@ -31,6 +31,29 @@ export const connect = (provider, search) => {
     .catch(console.log)
 }
 
+export const register = (username, email, password) => {
+  return axios
+    .post(API_HOST + '/auth/local/register', {
+      username,
+      email,
+      password,
+    })
+    .then(res => {
+      saveToken(res.data.jwt)
+    })
+}
+
+export const login = (email, password) => {
+  return axios
+    .post(API_HOST + '/auth/local', {
+      identifier: email,
+      password,
+    })
+    .then(res => {
+      saveToken(res.data.jwt)
+    })
+}
+
 const initAuthorization = () => {
   const token = loadToken()
   if (token) {

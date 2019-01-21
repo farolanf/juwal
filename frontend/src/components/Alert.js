@@ -42,11 +42,12 @@ const styles = theme => ({
   }
 })
 
-const Alert = ({ variant, message, classes }) => {
+const Alert = ({ variant, message, classes, className, style }) => {
   const Icon = variantIcon[variant]
   return (
     <SnackbarContent
-      className={classNames(classes.root, classes[variant])}
+      className={classNames(classes.root, classes[variant], className)}
+      style={style}
       message={
         <span className={classes.message}>
           <Icon className={classes.icon} />
@@ -61,6 +62,8 @@ Alert.propTypes = {
   variant: PropTypes.string,
   message: PropTypes.string,
   classes: PropTypes.object.isRequired,
+  className: PropTypes.string,
+  style: PropTypes.object,
 }
 
 Alert.defaultProps = {

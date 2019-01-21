@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { FormattedMessage } from 'react-intl'
+import { navigate } from '@reach/router'
 
 import Dialog from '@material-ui/core/Dialog'
 import DialogTitle from '@material-ui/core/DialogTitle'
@@ -16,50 +17,103 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFacebook, faGoogle } from '@fortawesome/free-brands-svg-icons'
 
 import { API_HOST } from '$src/const'
+import { login, register } from '../modules/auth';
+
+import Alert from '$comp/Alert'
 
 const styles = () => ({
   buttonIcon: tw`text-xl mr-2` 
 })
 
 const LoginBox = ({ open, onClose, classes }) => {
+  const [errorMessage, setErrorMessage] = useState('')
+
   const [mode, setMode] = useState('login')
   const otherMode = mode === 'login' ? 'register' : 'login'  
 
   useEffect(() => {
-    open && setMode('login')
+    if (open) {
+      setErrorMessage('')
+      setMode('login')
+    }
   }, [open])
 
   function toggleMode () {
     setMode(otherMode)
   }
 
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [passwordConfirm, setPasswordConfirm] = useState('')
+
   function handleSubmit (e) {
     e.preventDefault()
+    setErrorMessage('')
+    if (mode === 'login') {
+      login(email, password)
+        .then(() => {
+          onClose()
+          navigate('/profile')
+        })
+        .catch(err => {
+          err.response && setErrorMessage(err.response.data.message)
+        })
+    } else if (mode === 'register') {
+      register(email, email, password)
+        .then(() => {
+          onClose()
+          navigate('/profile')
+        })
+        .catch(err => {
+          err.response && setErrorMessage(err.response.data.message)
+        })
+    }
   }
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth='xs'>
-      {mode === 'login' ? (
-        <FormattedMessage id='login' defaultMessage='Login'>
-          {text => <DialogTitle>{text}</DialogTitle>}
-        </FormattedMessage>
-      ) : (
-        <FormattedMessage id='register' defaultMessage='Register'>
-          {text => <DialogTitle>{text}</DialogTitle>}
-        </FormattedMessage>
-      )}
+      <DialogTitle>
+        {mode === 'login' ? (
+          <FormattedMessage id='login' defaultMessage='Login' />
+        ) : (
+          <FormattedMessage id='register' defaultMessage='Register' />
+        )}
+        {errorMessage && <Alert variant='error' message={errorMessage} style={tw`mt-3 mb-0`} />}
+      </DialogTitle>
       <form onSubmit={handleSubmit}>
         <DialogContent>
           <Grid container>
             <Grid item xs={12}>
-              <TextField label='Email' placeholder='Email address' fullWidth />
+              <TextField
+                label='Email'
+                placeholder='Email address'
+                fullWidth
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+              />
             </Grid>
             <Grid item xs={12}>
-              <TextField label='Password' placeholder='Enter password' fullWidth margin='normal' />
+              <TextField
+                type='password'
+                label='Password'
+                placeholder='Enter password'
+                fullWidth
+                margin='normal'
+                value={password}
+                onChange={e => setPassword(e.target.value)}
+              />
             </Grid>
             {mode === 'register' && (
               <Grid item xs={12}>
-                <TextField label='Password confirm' placeholder='Confirm password' fullWidth margin='normal' />
+                <TextField
+                  type='password'
+                  label='Password confirm'
+                  placeholder='Confirm password'
+                  fullWidth
+                  margin='normal'
+                  value={passwordConfirm}
+                  onChange={e => setPasswordConfirm(e.target.value)}
+                />
               </Grid>
             )}
           </Grid>
