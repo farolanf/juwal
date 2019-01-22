@@ -1,0 +1,29 @@
+{
+  "connection": "default",
+  "collectionName": "",
+  "info": {
+    "name": "field",
+    "description": ""
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "type": {
+      "default": "",
+      "type": "string"
+    },
+    "title": {
+      "default": "",
+      "type": "string"
+    },
+    "producttypes": {
+      "collection": "producttype",
+      "via": "fields"
+    },
+    "fieldvalues": {
+      "collection": "fieldvalue",
+      "via": "field"
+    }
+  }
+}

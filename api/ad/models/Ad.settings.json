@@ -1,0 +1,39 @@
+{
+  "connection": "default",
+  "collectionName": "ad",
+  "info": {
+    "name": "ad",
+    "description": ""
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "title": {
+      "default": "",
+      "type": "string"
+    },
+    "desc": {
+      "default": "",
+      "type": "text"
+    },
+    "images": {
+      "collection": "file",
+      "via": "related",
+      "plugin": "upload",
+      "required": false
+    },
+    "price": {
+      "default": "",
+      "type": "integer"
+    },
+    "nego": {
+      "default": false,
+      "type": "boolean"
+    },
+    "kabupaten": {
+      "model": "kabupaten",
+      "via": "ads"
+    }
+  }
+}

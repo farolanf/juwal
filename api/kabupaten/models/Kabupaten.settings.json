@@ -1,0 +1,25 @@
+{
+  "connection": "default",
+  "collectionName": "",
+  "info": {
+    "name": "kabupaten",
+    "description": ""
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "title": {
+      "default": "",
+      "type": "string"
+    },
+    "provinsi": {
+      "model": "provinsi",
+      "via": "kabupatens"
+    },
+    "ads": {
+      "collection": "ad",
+      "via": "kabupaten"
+    }
+  }
+}

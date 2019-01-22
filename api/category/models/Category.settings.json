@@ -1,0 +1,32 @@
+{
+  "connection": "default",
+  "collectionName": "category",
+  "info": {
+    "name": "category",
+    "description": ""
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "title": {
+      "default": "",
+      "type": "string",
+      "required": true
+    },
+    "parents": {
+      "collection": "category",
+      "via": "children",
+      "dominant": true
+    },
+    "children": {
+      "collection": "category",
+      "via": "parents"
+    },
+    "producttypes": {
+      "collection": "producttype",
+      "via": "categories",
+      "dominant": true
+    }
+  }
+}

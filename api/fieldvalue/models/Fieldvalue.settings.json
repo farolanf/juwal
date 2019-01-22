@@ -1,0 +1,26 @@
+{
+  "connection": "default",
+  "collectionName": "fieldvalue",
+  "info": {
+    "name": "fieldvalue",
+    "description": ""
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "field": {
+      "model": "field",
+      "via": "fieldvalues",
+      "dominant": true
+    },
+    "val": {
+      "default": "",
+      "type": "string"
+    },
+    "products": {
+      "collection": "product",
+      "via": "fieldvalues"
+    }
+  }
+}
