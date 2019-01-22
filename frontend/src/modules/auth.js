@@ -13,7 +13,7 @@ export const clearToken = () => {
   initAuthorization()
 }
 
-const loadToken = () => localStorage.getItem('token')
+export const loadToken = () => localStorage.getItem('token')
 
 export const storeReferer = () => {
   const url = window.location.pathname + window.location.search
