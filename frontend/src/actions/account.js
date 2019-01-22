@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { createAction } from 'redux-actions'
+import { navigate } from '@reach/router'
 
 import { clearToken } from '$src/modules/auth'
 import { createAsyncAction } from '$src/modules/actions'
@@ -25,4 +26,5 @@ export const fetchUser = () => dispatch => {
 export const doLogout = () => dispatch => {
   clearToken()
   dispatch(logout())
+  navigate('/')
 }
