@@ -1,18 +1,18 @@
 import React, { useEffect } from 'react'
-import PropTypes from 'prop-types'
 import url from 'url'
 
 import Layout from '$comp/layout'
 
-import { connect, loadReferer } from '$src/modules/auth'
+import { connect, loginRedirect } from '$src/modules/auth'
 
-const ConnectPage = ({ navigate }) => {
+const ConnectPage = () => {
   const urlObj = url.parse(window.location.href, true)
   
   useEffect(() => {
-    connect(urlObj.query.provider, window.location.search).then(() => {
-      navigate(loadReferer() || '/')
-    })
+    connect(urlObj.query.provider, window.location.search)
+      .then(() => {
+        loginRedirect()
+      })
   }, [])
   
   return (
@@ -20,10 +20,6 @@ const ConnectPage = ({ navigate }) => {
       Connecting to {urlObj.query.provider}
     </Layout>
   )
-}
-
-ConnectPage.propTypes = {
-  navigate: PropTypes.func.isRequired
 }
 
 export default ConnectPage

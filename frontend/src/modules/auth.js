@@ -1,4 +1,6 @@
 import axios from 'axios'
+import { navigate } from '@reach/router'
+
 import { API_HOST } from '$src/const'
 
 export const saveToken = token => {
@@ -52,6 +54,11 @@ export const login = (email, password) => {
     .then(res => {
       saveToken(res.data.jwt)
     })
+}
+
+export const loginRedirect = () => {
+  const referer = loadReferer()
+  navigate(referer && referer !== '/' ? referer : process.env.GATSBY_HOME)
 }
 
 const initAuthorization = () => {

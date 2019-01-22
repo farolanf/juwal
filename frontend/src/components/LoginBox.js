@@ -17,7 +17,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFacebook, faGoogle } from '@fortawesome/free-brands-svg-icons'
 
 import { API_HOST } from '$src/const'
-import { login, register } from '../modules/auth';
+import { login, register, loginRedirect } from '../modules/auth';
 
 import Alert from '$comp/Alert'
 
@@ -53,7 +53,7 @@ const LoginBox = ({ open, onClose, classes }) => {
       login(email, password)
         .then(() => {
           onClose()
-          navigate('/profile')
+          loginRedirect()
         })
         .catch(err => {
           err.response && setErrorMessage(err.response.data.message)
@@ -62,7 +62,7 @@ const LoginBox = ({ open, onClose, classes }) => {
       register(email, email, password)
         .then(() => {
           onClose()
-          navigate('/profile')
+          navigate('/welcome/unconfirmed')
         })
         .catch(err => {
           err.response && setErrorMessage(err.response.data.message)
