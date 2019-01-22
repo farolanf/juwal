@@ -351,6 +351,6 @@ module.exports = {
       key: 'advanced'
     }).get();
 
-    ctx.redirect(settings.email_confirmation_redirection || '/');
+    ctx.redirect(settings.email_confirmation_redirection + '?token=' + params.confirmation || '/');
   }
 };
