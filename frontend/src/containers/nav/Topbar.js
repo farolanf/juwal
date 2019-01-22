@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 
 import Topbar from '$comp/nav/Topbar'
 import { openSidebar } from '$act/sidebar'
-import { fetchUser, doLogout } from '$act/account'
+import { doLogout } from '$act/account'
 import { setLocale } from '$act/app'
 
 const mapStateToProps = state => ({
@@ -13,7 +13,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   openSidebar: () => dispatch(openSidebar()),
-  fetchUser: () => dispatch(fetchUser()),
   logout: () => dispatch(doLogout()),
   setLocale: locale => dispatch(setLocale({ locale }))
 })

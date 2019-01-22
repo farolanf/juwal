@@ -10,6 +10,13 @@ require('dotenv').config({
 const path = require('path')
 
 module.exports = {
+  createPages: ({ actions }) => {
+    const { createPage } = actions
+    createPage({
+      path: '/connect',
+      component: path.resolve('./src/containers/pages/connect.js')
+    })
+  },
   onCreateWebpackConfig: ({ actions }) => {
     actions.setWebpackConfig({
       resolve: {

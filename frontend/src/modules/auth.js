@@ -61,7 +61,7 @@ export const loginRedirect = () => {
   navigate(referer && referer !== '/' ? referer : process.env.GATSBY_HOME)
 }
 
-const initAuthorization = () => {
+export const initAuthorization = () => {
   const token = loadToken()
   if (token) {
     axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
@@ -69,5 +69,3 @@ const initAuthorization = () => {
     delete axios.defaults.headers.common['Authorization']
   }
 }
-
-initAuthorization()

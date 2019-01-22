@@ -17,7 +17,7 @@ import LanguageIcon from '@material-ui/icons/Language'
 
 import Spacer from '../Spacer'
 import Link from './Link'
-import LoginBox from '../LoginBox'
+import LoginBox from '$con/LoginBox'
 
 import { storeReferer } from '../../modules/auth';
 import { FormattedMessage } from 'react-intl';
@@ -28,24 +28,7 @@ const styles = {
   buttonIcon: tw`mr-1`,
 }
 
-const Topbar = ({
-  title,
-  openSidebar,
-  classes,
-  loggedIn,
-  fetchUser,
-  logout,
-  locale,
-  setLocale,
-}) => {
-  useEffect(() => {
-    if (!window.location.pathname.startsWith('/connect')) {
-      storeReferer()
-    }
-    fetchUser()
-  }, [])
-
-  const [profileEl, setProfileEl] = useState(null)
+const LangButton = ({ locale, setLocale, classes }) => {
   const [langEl, setLangEl] = useState(null)
 
   function handleLangClick (locale) {
@@ -53,6 +36,42 @@ const Topbar = ({
     setLangEl(null)
   }
 
+  return (
+    <>
+      <Button color='inherit' onClick={e => setLangEl(e.currentTarget)}>
+        <LanguageIcon color='inherit' className={classes.buttonIcon} />
+        {locale.substr(0, 2)}
+      </Button>
+      <Menu anchorEl={langEl} open={!!langEl} onClose={() => setLangEl(null)}>
+        <MenuItem onClick={() => handleLangClick('en-US')}>English</MenuItem>
+        <MenuItem onClick={() => handleLangClick('id-ID')}>Indonesia</MenuItem>
+      </Menu>
+    </>
+  )
+}
+
+LangButton.propTypes = {
+  locale: PropTypes.string.isRequired,
+  setLocale: PropTypes.func.isRequired,
+  classes: PropTypes.object.isRequired,
+}
+
+const Topbar = ({
+  title,
+  openSidebar,
+  classes,
+  loggedIn,
+  logout,
+  locale,
+  setLocale,
+}) => {
+  useEffect(() => {
+    if (!window.location.pathname.match(/^\/(?:connect|welcome)/)) {
+      storeReferer()
+    }
+  }, [])
+
+  const [profileEl, setProfileEl] = useState(null)
   const [loginBoxOpen, setLoginBoxOpen] = useState(false)
 
   return (
@@ -77,16 +96,9 @@ const Topbar = ({
           </Button>
         </Hidden>
         <Spacer />
-        <Button color='inherit' onClick={e => setLangEl(e.currentTarget)}>
-          <LanguageIcon color='inherit' className={classes.buttonIcon} />
-          {locale.substr(0, 2)}
-        </Button>
-        <Menu anchorEl={langEl} open={!!langEl} onClose={() => setLangEl(null)}>
-          <MenuItem onClick={() => handleLangClick('en-US')}>English</MenuItem>
-          <MenuItem onClick={() => handleLangClick('id-ID')}>Indonesia</MenuItem>
-        </Menu>
         {!loggedIn ? (
           <>
+            <LangButton locale={locale} setLocale={setLocale} classes={classes} />
             <Button color='inherit' onClick={() => setLoginBoxOpen(true)}>
               <FormattedMessage id='login' defaultMessage='Login'>
                 {text => (
@@ -98,6 +110,10 @@ const Topbar = ({
           </>
         ) : (
           <>
+            <Link to='/pasang-iklan'>
+              <Button color='inherit'>Pasang iklan</Button>
+            </Link>
+            <LangButton locale={locale} setLocale={setLocale} classes={classes} />
             <IconButton color='inherit' aria-label='Account' onClick={e => setProfileEl(e.currentTarget)}>
               <PersonIcon />
             </IconButton>
@@ -121,7 +137,6 @@ Topbar.propTypes = {
   classes: PropTypes.object.isRequired,
   loggedIn: PropTypes.bool.isRequired,
   user: PropTypes.object,
-  fetchUser: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
   locale: PropTypes.string.isRequired,
   setLocale: PropTypes.func.isRequired,

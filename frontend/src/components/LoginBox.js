@@ -25,7 +25,7 @@ const styles = () => ({
   buttonIcon: tw`text-xl mr-2` 
 })
 
-const LoginBox = ({ open, onClose, classes }) => {
+const LoginBox = ({ open, onClose, fetchUser, classes }) => {
   const [errorMessage, setErrorMessage] = useState('')
 
   const [mode, setMode] = useState('login')
@@ -46,27 +46,25 @@ const LoginBox = ({ open, onClose, classes }) => {
   const [password, setPassword] = useState('')
   const [passwordConfirm, setPasswordConfirm] = useState('')
 
-  function handleSubmit (e) {
+  async function handleSubmit (e) {
     e.preventDefault()
     setErrorMessage('')
     if (mode === 'login') {
-      login(email, password)
-        .then(() => {
-          onClose()
-          loginRedirect()
-        })
+      await login(email, password)
         .catch(err => {
           err.response && setErrorMessage(err.response.data.message)
         })
+      onClose()
+      fetchUser()
+      loginRedirect()
     } else if (mode === 'register') {
-      register(email, email, password)
-        .then(() => {
-          onClose()
-          navigate('/welcome/unconfirmed')
-        })
+      await register(email, email, password)
         .catch(err => {
           err.response && setErrorMessage(err.response.data.message)
         })
+      onClose()
+      fetchUser()
+      navigate('/welcome/unconfirmed')
     }
   }
 
@@ -175,6 +173,7 @@ const LoginBox = ({ open, onClose, classes }) => {
 LoginBox.propTypes = {
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
+  fetchUser: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
 }
 
