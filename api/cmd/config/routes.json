@@ -1,0 +1,12 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/cmds/reset-regions",
+      "handler": "Cmd.resetRegions",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}
