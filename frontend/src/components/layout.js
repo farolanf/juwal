@@ -6,6 +6,7 @@ import { withStyles } from '@material-ui/core/styles'
 
 import Topbar from '$con/nav/Topbar'
 import Sidebar from '$con/nav/Sidebar'
+import Footer from '$comp/nav/Footer'
 
 import containerStyle from '$styles/container'
 
@@ -13,8 +14,7 @@ const styles = theme => ({
   root: {
     margin: '0 auto',
     ...containerStyle(theme)
-  },
-  content: tw`xs:p-4 md:px-8 md:py-6`
+  }
 })
 
 const Layout = ({ classes, children }) => {
@@ -33,10 +33,9 @@ const Layout = ({ classes, children }) => {
       render={data => (
         <div className={classes.root}>
           <Topbar title={data.site.siteMetadata.title} />
-          <div className={classes.content}>
-            {children}
-          </div>
           <Sidebar />
+          {children}
+          <Footer />
         </div>
       )}
     />
