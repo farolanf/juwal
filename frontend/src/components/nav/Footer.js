@@ -6,7 +6,7 @@ import { withStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 
 const styles = {
-  root: tw`p-12`
+  root: tw`p-20`
 }
 
 const Footer = ({ classes }) => {
