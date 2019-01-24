@@ -1,6 +1,8 @@
 {
+  "ads.new.title": "Ad title",
   "cancel": "Cancel",
   "login": "Login",
+  "login.with": "Or login with",
   "profile.greeting": "Hello, you have {count, plural, one {an email} other {# emails}}",
   "register": "Register"
 }
