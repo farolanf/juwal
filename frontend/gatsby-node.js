@@ -26,6 +26,7 @@ module.exports = {
           '$comp': path.resolve(__dirname, 'src/components'),
           '$con': path.resolve(__dirname, 'src/containers'),
           '$act': path.resolve(__dirname, 'src/actions'),
+          '$styles': path.resolve(__dirname, 'src/styles'),
         }
       }
     })
