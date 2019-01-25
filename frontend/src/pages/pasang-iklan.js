@@ -35,57 +35,92 @@ const messages = defineMessages({
 })
 
 const styles = theme => ({
-  content: {
-    ...contentFormStyle(theme),
-    ...tw`flex flex-col`
-  },
+  content: contentFormStyle(theme),
   help: {
     ...tw`flex justify-between`,
     '& > :first-child': tw`mr-3`
   }
 })
 
-const PasangIklanPage = ({ classes, intl }) => (
-  <Layout>
-    <div className={classes.content}>
-      <div>
-        <Typography variant='h4' gutterBottom>
-          <FormattedMessage {...messages.pageTitle} />
-        </Typography>
-        <TextField
-          label={intl.formatMessage(messages.title)}
-          fullWidth
-          margin='normal'
-          helperText={intl.formatMessage(messages.titleHelp)}
-        />
-        <TextField
-          label={intl.formatMessage(messages.desc)}
-          multiline
-          rows={5}
-          rowsMax={20}
-          fullWidth
-          margin='normal'
-          helperText={intl.formatMessage(messages.descHelp)}
-        />
-        <TextField
-          label='test'
-          fullWidth
-          error
-          helperText={
-            <div className={classes.help}>
-              <span>Help text </span>
-              <span>100 / 160</span>
-            </div>
-          }
-        />
-      </div>
-    </div>
-  </Layout>
+const Help = withStyles(styles)(
+  ({ classes, text, length, maxLength }) => (
+    <span className={classes.help}>
+      <span>{text}</span>
+      <span>{length} / {maxLength}</span>
+    </span>
+  )
 )
+
+class PasangIklanPage extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      title: '',
+      desc: '',
+    }
+  }
+
+  onTitleChange = e => {
+    this.setState({ title: e.target.value })
+  }
+
+  onDescChange = e => {
+    this.setState({ desc: e.target.value })
+  }
+
+  render () {
+    const { classes, intl } = this.props
+    const { title, desc } = this.state
+    return (
+      <Layout>
+        <div className={classes.content}>
+          <div>
+            <Typography variant='h4' gutterBottom>
+              <FormattedMessage {...messages.pageTitle} />
+            </Typography>
+            <TextField
+              label={intl.formatMessage(messages.title)}
+              fullWidth
+              margin='normal'
+              inputProps={{ maxLength: 70 }}
+              value={title}
+              onChange={this.onTitleChange}
+              helperText={
+                <Help
+                  text={intl.formatMessage(messages.titleHelp)}
+                  length={title.length}
+                  maxLength={70}
+                />
+              }
+            />
+            <TextField
+              label={intl.formatMessage(messages.desc)}
+              multiline
+              rows={5}
+              rowsMax={20}
+              fullWidth
+              margin='normal'
+              inputProps={{ maxLength: 4000 }}
+              value={desc}
+              onChange={this.onDescChange}
+              helperText={
+                <Help
+                  text={intl.formatMessage(messages.descHelp)}
+                  length={desc.length}
+                  maxLength={4000}
+                />
+              }
+            />
+          </div>
+        </div>
+      </Layout>
+    )
+  }
+}
 
 PasangIklanPage.propTypes = {
   classes: PropTypes.object.isRequired,
-  intl: PropTypes.func.isRequired,
+  intl: PropTypes.object.isRequired,
 }
 
 export default compose(
