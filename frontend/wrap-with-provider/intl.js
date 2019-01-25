@@ -20,7 +20,11 @@ const mapStateToProps = state => ({
 
 const ProviderWrapper = connect(mapStateToProps)(
   ({ locale, children }) => (
-    <IntlProvider locale={locale} messages={messages[locale]}>
+    <IntlProvider
+      locale={locale}
+      defaultLocale={locale}
+      messages={messages[locale]}
+    >
       {children}
     </IntlProvider>
   )
